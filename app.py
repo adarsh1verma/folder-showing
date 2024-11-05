@@ -7,6 +7,7 @@ app = Flask(__name__)
 FOLDER_PATH = 'C:\\Users\\itsad\\PycharmProjects\\Nothing_Project\\html\\Folder_Showing\\Practical File'
 
 
+
 @app.route('/')
 def index():
     # Get list of files in the folder
