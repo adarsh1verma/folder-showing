@@ -4,7 +4,7 @@ import os
 app = Flask(__name__)
 
 # Specify the folder path you want to display
-FOLDER_PATH = 'Practical File'
+FOLDER_PATH = 'C:\\Users\\itsad\\PycharmProjects\\Nothing_Project\\html\\Folder_Showing\\Practical File'
 
 
 
@@ -14,6 +14,10 @@ def index():
     # Get list of files in the folder
     files = os.listdir(FOLDER_PATH)
     return render_template('index.html', files=files)
+
+@app.route('/contributor')
+def contributor():
+    return render_template('contributors.html')
 
 @app.route('/files/<filename>')
 def download_file(filename):
