@@ -4,7 +4,8 @@ import os
 app = Flask(__name__)
 
 # Specify the folder path you want to display
-FOLDER_PATH = 'C:\\Users\\itsad\\PycharmProjects\\Nothing_Project\\html\\Folder_Showing\\Practical File'
+FOLDER_PATH = 'Practical File'
+
 
 
 @app.route('/')
