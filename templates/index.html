@@ -82,6 +82,7 @@ h1 {
 }
 
 /* Container styling */
+
 .container {
     max-width: 600px;
     width: 100%;
@@ -94,7 +95,10 @@ h1 {
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     z-index: 2;
+    max-height: 400px; /* Set a max height to limit the height of the container */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
+
 
 .container:hover {
     transform: translateY(-5px);
