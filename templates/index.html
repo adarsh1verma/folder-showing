@@ -25,6 +25,7 @@
             position: relative;
             overflow: hidden;
             perspective: 1000px;
+           
         }
 
         /* Container styling */
@@ -155,10 +156,72 @@
             transform: translateY(-2px);
         }
 
+        /* Full-screen animated orb background */
+        .animated-orb-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Orb styling */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: floatOrb 15s ease-in-out infinite alternate, glow 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Size variations for orbs */
+        .orb.small { width: 80px; height: 80px; background: rgba(249, 125, 106, 0.4); }
+        .orb.medium { width: 120px; height: 120px; background: rgba(231, 63, 169, 0.362); }
+        .orb.large { width: 160px; height: 160px; background: rgba(166, 242, 122, 0.2); }
+
+        /* Orb floating animation */
+        @keyframes floatOrb {
+            0% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-20px) translateX(20px); }
+            100% { transform: translateY(20px) translateX(-20px); }
+        }
+
+        /* Glowing pulsing animation */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 255, 255, 0.6); }
+            50% { box-shadow: 0 0 60px rgba(255, 255, 255, 0.9); }
+        }
+
+        /* Burst animation */
+@keyframes burst {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+
+
+
     </style>
 </head>
 <body>
     <a href="{{ url_for('contributor') }}" class="contributor-link">Contributors</a>
+
+    <div class="animated-orb-background"></div>
+
+
 
     <div class="container">
         <a href="https://wilted-cheerful-budget.anvil.app" class="link" target="_blank">Click To Visit Site To Add Practical Activity</a>
@@ -201,6 +264,38 @@
                 folderContent.style.display = 'none';
             }
         }
+        
+        function createOrbs(number) {
+        const orbContainer = document.querySelector('.animated-orb-background');
+
+        for (let i = 0; i < number; i++) {
+            const orb = document.createElement('div');
+            orb.classList.add('orb');
+
+            // Randomly assign a size class
+            const sizeClass = ['small', 'medium', 'large'][Math.floor(Math.random() * 3)];
+            orb.classList.add(sizeClass);
+
+            // Set random position
+            orb.style.left = `${Math.random() * 100}vw`;
+            orb.style.top = `${Math.random() * 100}vh`;
+
+            // Random animation delay
+            orb.style.animationDelay = `${Math.random() * 10}s`;
+
+            // Add click event to trigger burst effect
+            orb.addEventListener('click', function () {
+                orb.classList.add('burst');  // Trigger burst animation
+                // Remove orb from the container after the animation ends
+                setTimeout(() => orb.remove(), 1000);
+            });
+
+            orbContainer.appendChild(orb);
+        }
+    }
+
+    // Create 30 orbs
+    createOrbs(30);
     </script>
 </body>
 </html>
